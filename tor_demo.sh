@@ -206,15 +206,46 @@ generate_html() {
             font-weight: bold;
             display: inline-block;
         }
+        .sources {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid #475569;
+        }
+        .sources a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .sources a:hover {
+            text-decoration: underline;
+        }
+        .source-item {
+            margin: 0.75rem 0;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .source-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .patent-badge {
+            background: #8b5cf6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-<<<<<<< Updated upstream
         <h1>🧅 Tor: алгоритм Диффи-Хеллмана (Diffie-Hellman)</h1>
-=======
-        <h1> Tor: алгоритм Диффи-Хеллмана (Diffie-Hellman)</h1>
->>>>>>> Stashed changes
         
         <div class="info-box">
             <strong>📚 Для новичков:</strong> Диффи-Хеллман — это способ, с помощью которого два человека могут договориться об общем секретном ключе, даже если все их разговоры кто-то подслушивает. Этот алгоритм используется в Tor для установки шифрованного соединения между узлами.
@@ -367,6 +398,84 @@ generate_html() {
             </tbody>
         </table>
 
+        <!-- ========== БЛОК С ИСТОЧНИКАМИ ========== -->
+        <div class="sources">
+            <h2 style="margin-top: 0; color: #334155;">📚 Источники и дополнительная информация</h2>
+            
+            <div class="source-item">
+                <a href="https://www.cs.purdue.edu/homes/ninghui/courses/355_Fall11/lectures/lect09.pdf" target="_blank">
+                    📄 Purdue University: Diffie-Hellman Protocol Lecture
+                </a>
+                <span class="patent-badge">Университетский курс</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Детальное математическое обоснование протокола</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://www.cs.umd.edu/~waa/414-F11/IntroToCrypto.pdf" target="_blank">
+                    🔐 University of Maryland: Introduction to Cryptography
+                </a>
+                <span class="patent-badge">Криптография</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Основы криптографии и обмен ключами</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://www.cs.utexas.edu/~shmat/courses/cs378_diffie_hellman.pdf" target="_blank">
+                    🔑 UT Austin: Diffie-Hellman Key Exchange
+                </a>
+                <span class="patent-badge">Техасский университет</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Практические аспекты реализации DH</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://www.cs.jhu.edu/~sdoshi/crypto/papers/diffie-hellman.pdf" target="_blank">
+                    📐 Johns Hopkins University: DH Protocol Analysis
+                </a>
+                <span class="patent-badge">Анализ протокола</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Криптоанализ и безопасность DH</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://www.cs.berkeley.edu/~luca/cs276/notes/lecture2.pdf" target="_blank">
+                    🎯 UC Berkeley: Key Exchange Protocols
+                </a>
+                <span class="patent-badge">Berkeley</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Протоколы обмена ключами в современных системах</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://courses.cs.washington.edu/courses/csep590/06wi/lectures/diffiehellman.pdf" target="_blank">
+                    🌐 University of Washington: DH in Practice
+                </a>
+                <span class="patent-badge">Практическое применение</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Реализация DH в реальных протоколах</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://www.cs.cornell.edu/courses/cs5430/2010sp/lectures/lecture-dh.pdf" target="_blank">
+                    🏛️ Cornell University: Cryptographic Protocols
+                </a>
+                <span class="patent-badge">Криптографические протоколы</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Криптографические протоколы и их свойства</p>
+            </div>
+
+            <div class="source-item">
+                <a href="https://web.stanford.edu/class/cs259c/lectures/diffie-hellman.pdf" target="_blank">
+                    ⭐ Stanford University: Advanced DH
+                </a>
+                <span class="patent-badge">Stanford</span>
+                <p style="margin: 0.25rem 0 0 0; color: #4b5563; font-size: 0.9rem;">Продвинутые аспекты протокола Диффи-Хеллмана</p>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #dbeafe; border-radius: 8px;">
+                <p style="margin: 0; font-size: 0.9rem;">
+                    <strong>📌 Примечание:</strong> Все ссылки ведут на открытые образовательные материалы 
+                    ведущих университетов. Рекомендуется для углубленного изучения криптографии и протоколов 
+                    обмена ключами.
+                </p>
+            </div>
+        </div>
+        <!-- ========== КОНЕЦ БЛОКА С ИСТОЧНИКАМИ ========== -->
+
         <div style="margin-top:20px; text-align: center;">
             <button data-tooltip="Страница автообновляется при изменении скрипта" onmouseenter="showTooltip(event)" onmouseleave="hideTooltip()">
                 🔄 Информация
@@ -438,14 +547,11 @@ import subprocess
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-<<<<<<< Updated upstream
-=======
 print('🐍 Python сервер запущен')
 print(f'📂 Рабочая директория: {os.getcwd()}')
 print(f'📄 Файл tor_dh_page.html существует: {os.path.exists(\"tor_dh_page.html\")}')
 print('==================================')
 
->>>>>>> Stashed changes
 class ScriptHandler(FileSystemEventHandler):
     def on_modified(self, event):
         # Если изменился наш скрипт
