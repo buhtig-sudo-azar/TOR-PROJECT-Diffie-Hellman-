@@ -8,13 +8,15 @@ fi
 
 CURRENT_DIR=$(basename "$PWD")
 REMOTE_URL=$(git config --get remote.origin.url)
+CURRENT_BRANCH=$(git branch --show-current)
 
 echo "------------------------------------------------"
 echo "ТЕКУЩИЙ РЕПОЗИТОРИЙ: $CURRENT_DIR"
 echo "URL: $REMOTE_URL"
+echo "ТЕКУЩАЯ ВЕТКА: $CURRENT_BRANCH"
 echo "------------------------------------------------"
 
-# Запрашиваем сообщение коммита (ТОЧНО как в примере)
+# Запрашиваем сообщение коммита
 echo -n "Введите сообщение коммита:"
 read commit_message
 
@@ -24,14 +26,29 @@ if [ -z "$commit_message" ]; then
   exit 1
 fi
 
-# Запрашиваем ветку (ТОЧНО как в примере)
-echo -n "Введите ветку (по умолчанию main):"
-read branch
+# Показываем доступные ветки с номерами
+echo "Доступные локальные ветки:"
+mapfile -t branches < <(git branch --list --format="%(refname:short)")
+for i in "${!branches[@]}"; do
+  printf "  %d. %s\n" $((i+1)) "${branches[i]}"
+done
+echo
 
-# Автоопределение текущей ветки если пусто
-if [ -z "$branch" ]; then
-  branch=$(git branch --show-current)
+# Запрашиваем выбор
+echo -n "Выберите ветку по номеру (по умолчанию 1 - $CURRENT_BRANCH): "
+read choice
+
+# Обработка выбора
+if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "${#branches[@]}" ]; then
+  branch="${branches[$((choice-1))]}"
+elif [ -z "$choice" ]; then
+  branch="$CURRENT_BRANCH"
+else
+  echo "Ошибка: Неверный выбор!"
+  exit 1
 fi
+
+echo "Выбрана ветка: $branch"
 
 # Выполняем git команды
 git add .
