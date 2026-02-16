@@ -16,17 +16,15 @@ echo "URL: $REMOTE_URL"
 echo "ТЕКУЩАЯ ВЕТКА: $CURRENT_BRANCH"
 echo "------------------------------------------------"
 
-# Запрашиваем сообщение коммита
 echo -n "Введите сообщение коммита:"
 read commit_message
 
-# Проверка пустого сообщения
 if [ -z "$commit_message" ]; then
   echo "Ошибка: Сообщение коммита не может быть пустым!"
   exit 1
 fi
 
-# Показываем доступные ветки с номерами
+# Показываем ветки
 echo "Доступные локальные ветки:"
 mapfile -t branches < <(git branch --list --format="%(refname:short)")
 for i in "${!branches[@]}"; do
@@ -34,11 +32,9 @@ for i in "${!branches[@]}"; do
 done
 echo
 
-# Запрашиваем выбор
 echo -n "Выберите ветку по номеру (по умолчанию 1 - $CURRENT_BRANCH): "
 read choice
 
-# Обработка выбора
 if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "${#branches[@]}" ]; then
   branch="${branches[$((choice-1))]}"
 elif [ -z "$choice" ]; then
@@ -50,7 +46,6 @@ fi
 
 echo "Выбрана ветка: $branch"
 
-# Выполняем git команды
 git add .
 git commit -m "$commit_message"
 git push origin "$branch"
