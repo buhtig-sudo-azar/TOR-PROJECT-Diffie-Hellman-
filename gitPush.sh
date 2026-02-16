@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Проверяем git-репозиторий
 if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   echo "Ошибка: Здесь нет git-репозитория!"
   exit 1
@@ -16,7 +15,7 @@ echo "URL: $REMOTE_URL"
 echo "ТЕКУЩАЯ ВЕТКА: $CURRENT_BRANCH"
 echo "------------------------------------------------"
 
-echo -n "Введите сообщение коммита:"
+echo -n "Введите сообщение коммита: "
 read commit_message
 
 if [ -z "$commit_message" ]; then
@@ -24,15 +23,15 @@ if [ -z "$commit_message" ]; then
   exit 1
 fi
 
-# Показываем ветки
 echo "Доступные локальные ветки:"
 mapfile -t branches < <(git branch --list --format="%(refname:short)")
 for i in "${!branches[@]}"; do
-  printf "  %d. %s\n" $((i+1)) "${branches[i]}"
+  num=$((i+1))
+  printf "  %d. %s\n" "$num" "${branches[i]}"
 done
 echo
 
-echo -n "Выберите ветку по номеру (по умолчанию 1 - $CURRENT_BRANCH): "
+echo -n "Выберите ветку по номеру (Enter = $CURRENT_BRANCH): "
 read choice
 
 if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "${#branches[@]}" ]; then
