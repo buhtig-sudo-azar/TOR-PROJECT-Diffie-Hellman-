@@ -15,37 +15,36 @@ echo "URL: $REMOTE_URL"
 echo "ТЕКУЩАЯ ВЕТКА: $CURRENT_BRANCH"
 echo "------------------------------------------------"
 
-echo -n "Введите сообщение коммита:"
+echo -n "Введите сообщение коммита: "
 read commit_message
 
 if [ -z "$commit_message" ]; then
-  echo "Ошибка: Сообщение коммита не может быть пустым!"
+  echo "Ошибка: Сообщение пустое!"
   exit 1
 fi
 
-echo "Доступные локальные ветки:"
-mapfile -t branches < <(git branch --list --format="%(refname:short)")
+echo "ВЕТКИ:"
+mapfile -t branches < <(git branch --format="%(refname:short)")
 for i in "${!branches[@]}"; do
   printf "  %d. %s\n" $((i+1)) "${branches[i]}"
 done
-echo
 
-echo -n "Выберите ветку по номеру (Enter = $CURRENT_BRANCH): "
+echo -n "НОМЕР ВЕТКИ (Enter=$CURRENT_BRANCH): "
 read choice
 
-if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "${#branches[@]}" ]; then
+if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le ${#branches[@]} ]; then
   branch="${branches[$((choice-1))]}"
 elif [ -z "$choice" ]; then
   branch="$CURRENT_BRANCH"
 else
-  echo "Ошибка: Неверный выбор!"
+  echo "НЕВЕРНЫЙ ВЫБОР!"
   exit 1
 fi
 
-echo "Выбрана ветка: $branch"
+echo "ВЫБРАНА: $branch"
 
 git add .
 git commit -m "$commit_message"
 git push origin "$branch"
 
-echo "Готово! Изменения отправлены в $branch."
+echo "ГОТОВО! Отправлено в $branch."
