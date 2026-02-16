@@ -15,7 +15,7 @@ echo "URL: $REMOTE_URL"
 echo "ТЕКУЩАЯ ВЕТКА: $CURRENT_BRANCH"
 echo "------------------------------------------------"
 
-echo -n "Введите сообщение коммита: "
+echo -n "Введите сообщение коммита:"
 read commit_message
 
 if [ -z "$commit_message" ]; then
@@ -26,8 +26,7 @@ fi
 echo "Доступные локальные ветки:"
 mapfile -t branches < <(git branch --list --format="%(refname:short)")
 for i in "${!branches[@]}"; do
-  num=$((i+1))
-  printf "  %d. %s\n" "$num" "${branches[i]}"
+  printf "  %d. %s\n" $((i+1)) "${branches[i]}"
 done
 echo
 
