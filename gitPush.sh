@@ -1,41 +1,55 @@
 #!/bin/bash
+set -euo pipefail  # Выход при ошибке, unset vars, pipefail [web:12]
 
-# Проверяем, находимся ли мы вообще в git-репозитории
+# Проверяем git-репозиторий
 if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   echo "Ошибка: Здесь нет git-репозитория!"
   exit 1
 fi
 
-# Получаем имя текущей папки и URL удаленного репозитория
 CURRENT_DIR=$(basename "$PWD")
 REMOTE_URL=$(git config --get remote.origin.url)
 
 echo "------------------------------------------------"
-echo "ТЕКУЩИЙ РЕПОЗИТОРИЙ: $CURRENT_DIR"
+echo "РЕПОЗИТОРИЙ: $CURRENT_DIR"
 echo "URL: $REMOTE_URL"
 echo "------------------------------------------------"
 
-# Запрашиваем сообщение коммита
-echo "Введите сообщение коммита:"
-read commit_message
-
-# Проверка на пустое сообщение (чтобы не упал коммит)
+# Сообщение коммита
+echo "Сообщение коммита:"
+read -r commit_message
 if [ -z "$commit_message" ]; then
-  echo "Ошибка: Сообщение коммита не может быть пустым!"
+  echo "Ошибка: Сообщение не может быть пустым!"
   exit 1
 fi
 
-# Запрашиваем ветку
-echo "Введите ветку (по умолчанию main):"
-read branch
+# Ветка
+echo "Ветка (по умолчанию main):"
+read -r branch
+branch=${branch:-main}
 
-if [ -z "$branch" ]; then
-  branch="main"
+# Проверка изменений
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  git add .
+  git commit -m "$commit_message"
+  echo "Коммит создан."
+else
+  echo "Нет изменений для коммита."
+  exit 0
 fi
 
-# Выполняем действия
-git add .
-git commit -m "$commit_message"
-git push -u origin "$branch"
+# Pull с rebase перед push [web:15]
+echo "Pull с rebase из origin/$branch?"
+git pull --rebase origin "$branch" || {
+  echo "Конфликты в pull: разрешите вручную (git rebase --continue)."
+  exit 1
+}
 
-echo "Готово! Изменения отправлены в $branch."
+# Подтверждение push
+echo "Push в $branch? (y/n)"
+read -r confirm
+if [[ "$confirm" =~ ^[Yy] ]]; then
+  git push origin "$branch"
+fi
+
+echo "Готово!"
