@@ -210,7 +210,11 @@ generate_html() {
 </head>
 <body>
     <div class="container">
+<<<<<<< Updated upstream
         <h1>🧅 Tor: алгоритм Диффи-Хеллмана (Diffie-Hellman)</h1>
+=======
+        <h1> Tor: алгоритм Диффи-Хеллмана (Diffie-Hellman)</h1>
+>>>>>>> Stashed changes
         
         <div class="info-box">
             <strong>📚 Для новичков:</strong> Диффи-Хеллман — это способ, с помощью которого два человека могут договориться об общем секретном ключе, даже если все их разговоры кто-то подслушивает. Этот алгоритм используется в Tor для установки шифрованного соединения между узлами.
@@ -434,6 +438,14 @@ import subprocess
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+<<<<<<< Updated upstream
+=======
+print('🐍 Python сервер запущен')
+print(f'📂 Рабочая директория: {os.getcwd()}')
+print(f'📄 Файл tor_dh_page.html существует: {os.path.exists(\"tor_dh_page.html\")}')
+print('==================================')
+
+>>>>>>> Stashed changes
 class ScriptHandler(FileSystemEventHandler):
     def on_modified(self, event):
         # Если изменился наш скрипт
