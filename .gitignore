@@ -1,5 +1,18 @@
-/venv
-/env
-/node_modules
-gitPush.sh
-.env
+# Python
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Скрипты (если НЕ хочешь пушить)
+
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
